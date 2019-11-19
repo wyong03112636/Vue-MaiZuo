@@ -1,22 +1,54 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Index from 'pages/index/Index.vue'
+import MovieList from 'pages/index/MovieList.vue'
+import Moving from 'pages/index/Moving.vue'
+import Coming from 'pages/index/Coming.vue'
+import Cinema from 'pages/cinema/Cinema.vue'
+import News from 'pages/news/News.vue'
+import Profile from 'pages/profile/Profile.vue'
+import Position from 'pages/position/Position.vue'
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
-    name: 'home',
-    component: Home
+    redirect: '/index/movielist/moving'
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/pos',
+    component: Position
+  },
+
+  {
+    path: '/index',
+    component: Index,
+    children: [{
+        path: 'movielist',
+        component: MovieList,
+        redirect: '/index/movielist/moving',
+        children: [{
+            path: 'moving',
+            component: Moving
+          },
+          {
+            path: 'coming',
+            component: Coming
+          }
+        ]
+      },
+      {
+        path: 'cinema',
+        component: Cinema
+      },
+      {
+        path: 'news',
+        component: News
+      },
+      {
+        path: 'profile',
+        component: Profile
+      }
+    ]
   }
 ]
 
