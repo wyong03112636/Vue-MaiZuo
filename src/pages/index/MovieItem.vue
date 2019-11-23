@@ -4,6 +4,7 @@
         <div class="sub-wrap"
         v-for="item in data"
         :key="item.id"
+        @click="handleClick(item.id)"
       >
         <div class="wrap-img">
           <img :src="item.img | wh('340.460')" alt="">
@@ -23,6 +24,7 @@
         <div class="sub-wrap"
         v-for="item in coming_data"
         :key="item.id"
+        @click="handleClick(item.id)"
       >
         <div class="wrap-img">
           <img :src="item.img | wh('340.460')" alt="">
@@ -47,7 +49,7 @@
 <script>
 import Vue from 'vue'
 import wh from 'filters/img.js'
-import {http} from 'utils/http.js'
+import {http, get} from 'utils/http.js'
 import BScroll from 'better-scroll'
 import _ from 'lodash'
 import {Toast, Loading} from 'vant'
@@ -75,7 +77,8 @@ export default {
       let movieIds = _.chunk(result.data.movieIds.slice(12), 10)
       let bs =  new BScroll('.moving',{
         pullUpLoad: true,
-        probeType: 2
+        probeType: 2,
+        click: true
       })
       let page = 0;
       bs.on('pullingUp', async () => {
@@ -83,7 +86,7 @@ export default {
           let result = await http({
             url: '/ajax/moreComingList',
             params: {
-              ci: 1,
+              ci: this.$store.state.cityId,
               token: '',
               movieIds: movieIds[page].join(',')
             }
@@ -111,7 +114,7 @@ export default {
       let com_result = await http({  
         url: '/ajax/moreComingList',
         params: {
-          ci: 1,
+          ci: this.$store.state.cityId,
           token: '' ,
           limit: this.limit,
           movieIds:movieIds[page].join(',')
@@ -121,14 +124,15 @@ export default {
       this.coming_data = com_result.data.coming;
       let bs =  new BScroll('.coming',{
         pullUpLoad: true,
-        probeType: 2
+        probeType: 2,
+        click: true
       })
       bs.on('pullingUp', async () => {
         if(page < movieIds.length) {
           let result = await http({
             url: '/ajax/moreComingList',
             params: {
-              ci: 1,
+              ci: this.$store.state.cityId,
               token: '',
               limit: this.limit,
               movieIds: movieIds[page].join(',')
@@ -151,7 +155,9 @@ export default {
     }
   },
   methods: {
-
+    handleClick(id) {
+      this.$router.push(`/moviedetails/${id}`)
+    }
   }
 }
 </script>

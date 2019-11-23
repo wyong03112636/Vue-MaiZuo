@@ -1,37 +1,40 @@
 <template>
-  <div class="wrap-position">
-    <div class="wrap-title">
-      <div class="title">
-        <span class="yo-ico" @click="handleClick" >&#xe773;</span>
-        <h3>当前城市 -</h3>
+  
+    <div class="wrap-position">
+      <div class="wrap-title">
+        <div class="title">
+          <span class="yo-ico" @click="handleClick" >&#xe773;</span>
+          <h3>当前城市 -</h3>
+        </div>
+        <div class="search">
+          <input type="text" placeholder="请输入城市名或拼音">
+          <span class="yo-ico">&#xe624;</span>
+        </div>
       </div>
-      <div class="search">
-        <input type="text" placeholder="请输入城市名或拼音">
-        <span class="yo-ico">&#xe624;</span>
-      </div>
-    </div>
-    <van-index-bar :index-list="indexList" highlight-color="#ff5f16">
-      <section>
-        <van-index-anchor index="定位" class="city-title"></van-index-anchor>
-        
-        <p><span>北京</span></p>
-         <van-index-anchor index="热门" class="city-title"></van-index-anchor>
-        
-        <p><span>北京</span><span>上海</span><span>广州</span><span>深圳</span></p>
-      </section>
-
-      <section>
-        <div v-for="(city, key) in cityList" :key="key">
-          <van-index-anchor :index="key" class=" city-title-letter">{{key}}</van-index-anchor>
-          <div class="city-list ">
-            <div class="city-item" v-for="c in city" :key="c.id">
-              {{c.nm}}
+      <section v-if="req.length === 0" class="loading"> 
+          <van-loading color="#ff5f16"/>
+        </section>
+      <van-index-bar :index-list="indexList" highlight-color="#ff5f16" v-else>
+        <section>
+          <van-index-anchor index="定位" class="city-title"></van-index-anchor>
+          
+          <p><span>定位失败~</span></p>
+          <van-index-anchor index="热门" class="city-title"></van-index-anchor>
+          
+          <p><span v-for="city in hot_city" :key="city.id" @click="handlePickCity(city.id, city.nm)">{{city.nm}}</span></p>
+        </section>
+        <section>
+          <div v-for="(city, key) in cityList" :key="key">
+            <van-index-anchor :index="key" class=" city-title-letter">{{key}}</van-index-anchor>
+            <div class="city-list ">
+              <div class="city-item" v-for="c in city" :key="c.id" @click="handlePickCity(c.id, c.nm)">
+                {{c.nm}}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </van-index-bar>
-  </div>
+        </section>
+      </van-index-bar>
+    </div>
 </template>
 
 <script>
@@ -39,16 +42,28 @@ import Vue from 'vue';
 import { IndexBar, IndexAnchor } from 'vant';
 import _ from 'lodash'
 import { get } from 'utils/http.js'
+import store from 'store'
+import { Loading } from 'vant'
+
+Vue.use(Loading)
 Vue.use(IndexBar).use(IndexAnchor);
 export default {
   data() {
     return {
-      cityList: {}
+      cityList: {},
+      req: '',
+      hot_city: ''
     }
   },
 
   methods: {
     handleClick() {
+      this.$router.back()
+    },
+
+    handlePickCity(id, nm) {
+      this.$store.dispatch('changeCity', {id, nm})
+      store.set('city', {id, nm})
       this.$router.back()
     }
   },
@@ -72,6 +87,8 @@ export default {
    let result =  await get({
      url: '/dianying/cities.json'
    })
+   this.hot_city = _.sampleSize(result.cts, 8)
+   this.req = result
    let groupResult = _.groupBy(result.cts, (value) => {
      return value.py.substr(0, 1).toUpperCase()
    })
@@ -128,6 +145,7 @@ export default {
     .van-index-bar
       flex 1 
       overflow-y scroll  
+      background #fff
       section 
         background #ffffff
         // padding .15rem
@@ -168,4 +186,10 @@ export default {
           .city-item
             font-size .14rem
             line-height  .48rem
+    .loading
+      height 100%
+      display flex
+      justify-content center
+      align-items center
+      background #ffffff
 </style>

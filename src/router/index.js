@@ -8,6 +8,9 @@ import Cinema from 'pages/cinema/Cinema.vue'
 import News from 'pages/news/News.vue'
 import Profile from 'pages/profile/Profile.vue'
 import Position from 'pages/position/Position.vue'
+import CinemaDetails from 'pages/details/CinemaDetails.vue'
+import Search from 'pages/search/Search.vue'
+import MovieDetails from 'pages/details/MovieDetails.vue'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -15,10 +18,21 @@ const routes = [{
     redirect: '/index/movielist/moving'
   },
   {
+    path: '/moviedetails/:id',
+    component: MovieDetails
+  },
+  {
     path: '/pos',
     component: Position
   },
-
+  {
+    path: '/search',
+    component: Search
+  },
+  {
+    path: '/cinemadetails/:id',
+    component: CinemaDetails
+  },
   {
     path: '/index',
     component: Index,

@@ -2,11 +2,11 @@
   <div class="wrap-movielist">
     <van-swipe :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="(img, index) in images" :key="index">
-         <img :src="img" alt="">
+         <img :src="img">
       </van-swipe-item>
     </van-swipe>
     <div class="position" @click="handleClick">
-      <span class="yo-ico">北京 &#xe638;</span>
+      <span class="yo-ico">{{$store.state.cityName}} &#xe638;</span>
     </div>
     <div class="movie-content">
       <ul>
@@ -14,7 +14,12 @@
         <router-link tag="li" active-class="active" to="coming"><span>即将上映</span></router-link>
       </ul>
         <div class="movie-list">
+          <!-- <transition 
+            :enter-active-class="enter_animate"
+            :leave-active-class="leave_animate"
+          > -->
             <router-view></router-view>
+          <!-- </transition> -->
         </div>
     </div>
   </div>
@@ -22,16 +27,20 @@
 
 <script>
 import Vue from 'vue';
-import { Swipe, SwipeItem } from 'vant';
+import { Swipe, SwipeItem, Lazyload } from 'vant';
 
-Vue.use(Swipe).use(SwipeItem);
+Vue.use(Swipe).use(SwipeItem).use(Lazyload);
 export default {
   data() {
     return {
       images: [
         "https://static.maizuo.com/v5/upload/044c29d00a2fad92adc62bcf24e44837.jpg?x-oss-process=image/quality,Q_70",
-        "https://static.maizuo.com/v5/upload/13777d69b0b94fc99e78b1a467913296.jpg?x-oss-process=image/quality,Q_70"
-      ]
+        "https://static.maizuo.com/v5/upload/13777d69b0b94fc99e78b1a467913296.jpg?x-oss-process=image/quality,Q_70",
+        "https://static.maizuo.com/v5/upload/6dbadcf2e05692ee95f234215ebd0aad.jpg?x-oss-process=image/quality,Q_70",
+        "https://static.maizuo.com/v5/upload/d31fdf1d15375467130b5a52eff8a47a.jpg?x-oss-process=image/quality,Q_70"
+      ],
+      leave_animate: '',
+      enter_animate: ''
     }
   },
 
@@ -39,7 +48,18 @@ export default {
     handleClick() {
       this.$router.push('/pos')
     }
-  }
+  },
+
+  // beforeRouteUpdate(to, from, next) {
+  //   if(to.path === '/index/movielist/moving') {
+  //     this.leave_animate = "animated slideOutLeft"
+  //     this.enter_animate = "animated slideInRight"
+  //   }else{
+  //     this.enter_animate = "animated slideOutLeft"
+  //     this.leave_animate = "animated slideInRight"
+  //   }
+  //   next()
+  // }
 }
 </script>
 
