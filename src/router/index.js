@@ -1,75 +1,78 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Index from 'pages/index/Index.vue'
-import MovieList from 'pages/index/MovieList.vue'
-import Moving from 'pages/index/Moving.vue'
-import Coming from 'pages/index/Coming.vue'
-import Cinema from 'pages/cinema/Cinema.vue'
-import News from 'pages/news/News.vue'
-import Profile from 'pages/profile/Profile.vue'
-import Position from 'pages/position/Position.vue'
-import CinemaDetails from 'pages/details/CinemaDetails.vue'
-import Search from 'pages/search/Search.vue'
-import MovieDetails from 'pages/details/MovieDetails.vue'
-Vue.use(VueRouter)
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Index from 'pages/index/Index.vue';
+import MovieList from 'pages/index/MovieList.vue';
+import Moving from 'pages/index/Moving.vue';
+import Coming from 'pages/index/Coming.vue';
+import Cinema from 'pages/cinema/Cinema.vue';
+import News from 'pages/news/News.vue';
+import Profile from 'pages/profile/Profile.vue';
+import Position from 'pages/position/Position.vue';
+import CinemaDetails from 'pages/details/CinemaDetails.vue';
+import Search from 'pages/search/Search.vue';
+import MovieDetails from 'pages/details/MovieDetails.vue';
+Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: '/',
-    redirect: '/index/movielist/moving'
+    redirect: '/index/movielist/moving',
   },
   {
     path: '/moviedetails/:id',
-    component: MovieDetails
+    component: MovieDetails,
   },
   {
     path: '/pos',
-    component: Position
+    component: Position,
   },
   {
     path: '/search',
-    component: Search
+    component: Search,
   },
   {
     path: '/cinemadetails/:id',
-    component: CinemaDetails
+    component: CinemaDetails,
   },
   {
     path: '/index',
     component: Index,
-    children: [{
+    children: [
+      {
         path: 'movielist',
         component: MovieList,
         redirect: '/index/movielist/moving',
-        children: [{
+        children: [
+          {
             path: 'moving',
-            component: Moving
+            component: Moving,
           },
           {
             path: 'coming',
-            component: Coming
-          }
-        ]
+            component: Coming,
+          },
+        ],
       },
       {
         path: 'cinema',
-        component: Cinema
+        component: Cinema,
       },
       {
         path: 'news',
-        component: News
+        component: News,
       },
       {
         path: 'profile',
-        component: Profile
-      }
-    ]
-  }
-]
+        component: Profile,
+      },
+    ],
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

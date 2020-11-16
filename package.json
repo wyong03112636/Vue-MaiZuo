@@ -24,6 +24,8 @@
     "@vue/cli-plugin-vuex": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "babel-plugin-import": "^1.12.2",
+    "eslint": "^7.13.0",
+    "eslint-plugin-vue": "^7.1.0",
     "prettier": "2.1.2",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
@@ -35,6 +37,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,vue}": "prettier --write"
+    "src/**/*.{js,vue}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

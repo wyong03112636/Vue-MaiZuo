@@ -5,21 +5,21 @@
 </template>
 
 <script>
-import MovieItem from 'pages/index/MovieItem.vue'
+import MovieItem from 'pages/index/MovieItem.vue';
 export default {
   data() {
     return {
-      type: 'coming'
-    }
+      type: 'coming',
+    };
   },
 
   components: {
-    MovieItem
-  }
-}
+    MovieItem,
+  },
+};
 </script>
 
 <style lang="stylus">
-  .wrap-coming
-    height 100%
+.wrap-coming
+  height 100%
 </style>

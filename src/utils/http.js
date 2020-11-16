@@ -1,27 +1,21 @@
-import axios from 'axios'
-export function http({
-  url,
-  params = {}
-}) {
+import axios from 'axios';
+export function http({ url, params = {} }) {
   return axios({
     method: 'get',
     url,
     params,
-  })
+  });
 }
 
-export const get = ({
-  url,
-  params
-}) => {
+export const get = ({ url, params }) => {
   return axios({
-      url,
-      params
+    url,
+    params,
+  })
+    .then(result => {
+      return result.data;
     })
-    .then((result) => {
-      return result.data
-    })
-    .catch((err) => {
-      return err.message
-    })
-}
+    .catch(err => {
+      return err.message;
+    });
+};

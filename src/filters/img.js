@@ -1,5 +1,5 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
 Vue.filter('wh', (value, args) => {
-  return value.replace('w.h', args)
-})
+  return value.replace('w.h', args);
+});

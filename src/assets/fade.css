@@ -1,11 +1,14 @@
-.v-enter, .v-leave-to {
+.v-enter,
+.v-leave-to {
   opacity: 0;
 }
 
-.v-enter-to, .v-leave {
+.v-enter-to,
+.v-leave {
   opacity: 1;
 }
 
-.v-enter-active, .v-leave-active  {
-  transition: opacity .3s ease-in
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease-in;
 }

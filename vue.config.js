@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 module.exports = {
   chainWebpack: config => {
     config.resolve.alias
@@ -6,7 +6,7 @@ module.exports = {
       .set('assets', path.resolve(__dirname, './src/assets'))
       .set('pages', path.resolve(__dirname, './src/pages'))
       .set('utils', path.resolve(__dirname, './src/utils'))
-      .set('filters', path.resolve(__dirname, './src/filters'))
+      .set('filters', path.resolve(__dirname, './src/filters'));
   },
   devServer: {
     proxy: {
@@ -16,8 +16,8 @@ module.exports = {
       },
       '/dianying': {
         target: 'https://m.maoyan.com',
-        changeOrigin: true
-      }
+        changeOrigin: true,
+      },
     },
-  }
-}
+  },
+};
