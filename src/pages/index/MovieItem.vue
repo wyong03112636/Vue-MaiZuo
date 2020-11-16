@@ -110,6 +110,7 @@ export default {
       this.isLoad = false;
       let page = 0;
       let movieIds = _.chunk(result.data.movieIds.slice(8), 10);
+      // eslint-disable-next-line camelcase
       let com_result = await http({
         url: '/ajax/moreComingList',
         params: {
@@ -139,7 +140,7 @@ export default {
           });
           page++;
           this.coming_data = [...this.coming_data, ...result.data.coming];
-          await this.$nextTick();
+          await this.$nextTick(); 
           bs.refresh();
           this.isLoad = true;
         } else {
