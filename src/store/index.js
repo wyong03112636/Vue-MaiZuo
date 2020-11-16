@@ -6,8 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cityId: store.get('city').id || 1,
-    cityName: store.get('city').nm || '北京'
+    cityId: store.get('city') && store.get('city').id || 1,
+    cityName: store.get('city') && store.get('city').nm || '北京'
   },
   mutations: {
     setCity(state, payload) {

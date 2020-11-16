@@ -24,8 +24,17 @@
     "@vue/cli-plugin-vuex": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "babel-plugin-import": "^1.12.2",
+    "prettier": "2.1.2",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": "prettier --write"
   }
 }

@@ -46,6 +46,9 @@ export default {
       flex 1
       height 100%
     nav 
+      position fixed
+      bottom 0
+      width 100%
       height .52rem
       background #ffffff
       ul
