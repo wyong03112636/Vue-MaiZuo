@@ -140,7 +140,7 @@ export default {
           });
           page++;
           this.coming_data = [...this.coming_data, ...result.data.coming];
-          await this.$nextTick(); 
+          await this.$nextTick();
           bs.refresh();
           this.isLoad = true;
         } else {

@@ -158,6 +158,7 @@ export default {
     });
     bs.finishPullUp();
 
+    // eslint-disable-next-line camelcase
     let addr_result = await http({
       url: '/ajax/filterCinemas',
       params: {

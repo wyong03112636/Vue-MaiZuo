@@ -12,7 +12,6 @@ export default {
       type: 'coming',
     };
   },
-
   components: {
     MovieItem,
   },
