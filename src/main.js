@@ -6,7 +6,7 @@ import 'assets/reset.css';
 import 'assets/animation.css';
 // import 'assets/fade.css'
 Vue.config.productionTip = false;
-
+console.log(process.env);
 new Vue({
   router,
   store,
